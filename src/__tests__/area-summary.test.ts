@@ -31,9 +31,10 @@ describe("area summary resilience", () => {
   it("does not present unrelated nationwide-feed warnings as local", async () => {
     getWeatherWarnings.mockResolvedValue([
       { id: "sea", title: "Rough seas", description: "Waters of Sabah", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
+      { id: "local-marine", title: "Thunderstorm", description: "Expected over the waters of Pulau Pinang", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
       { id: "local", title: "Thunderstorm", description: "Expected in Pulau Pinang", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
     ]);
     const result = await buildAreaSummary(outside);
-    expect(result.weatherWarnings.map((warning) => warning.id)).toEqual(["local"]);
+    expect(result.weatherWarnings.map((warning) => warning.id)).toEqual(["local-marine", "local"]);
   });
 });

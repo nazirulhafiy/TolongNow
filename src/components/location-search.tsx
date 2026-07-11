@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PinIcon, ArrowIcon } from "@/components/icons";
 import { usePreferences } from "@/components/preferences";
@@ -14,6 +14,7 @@ export function LocationSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [results, setResults] = useState<Result[]>([]);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const go = (result: Result) => { const params = new URLSearchParams({ lat: String(result.latitude), lng: String(result.longitude), name: result.name }); if (result.district) params.set("district", result.district); if (result.state) params.set("state", result.state); router.push(`/area/selected-location?${params}`); };
   async function search(event: FormEvent) {
@@ -45,7 +46,7 @@ export function LocationSearch() {
           go(fallback);
         }
       },
-      () => { setLoading(false); setError(t.locationDeniedPilot); },
+      () => { setLoading(false); setError(t.locationDeniedPilot); searchInputRef.current?.focus(); },
       { enableHighAccuracy: false, timeout: 10_000, maximumAge: 300_000 },
     );
   }
@@ -53,7 +54,7 @@ export function LocationSearch() {
     <button className="button button-primary button-wide" onClick={locate} disabled={loading}><PinIcon /> {t.useLocation}</button>
     <div className="privacy-note"><span className="privacy-dot"/>{t.privacyNote}</div>
     <div className="divider"><span>{t.searchDivider}</span></div>
-    <form onSubmit={search} className="search-form"><label htmlFor="location">{t.searchLabel}</label><div className="search-row"><div className="input-wrap"><PinIcon/><input id="location" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t.searchPlaceholder} minLength={2} required /></div><button className="button button-dark" disabled={loading}>{loading ? t.checking : t.findHelp}<ArrowIcon /></button></div></form>
+    <form onSubmit={search} className="search-form"><label htmlFor="location">{t.searchLabel}</label><div className="search-row"><div className="input-wrap"><PinIcon/><input ref={searchInputRef} id="location" value={query} onChange={(e) => { setQuery(e.target.value); if (error) setError(""); }} placeholder={t.searchPlaceholder} minLength={2} required /></div><button className="button button-dark" disabled={loading}>{loading ? t.checking : t.findHelp}<ArrowIcon /></button></div></form>
     {error && <p className="form-error" role="alert">{error}</p>}
     {results.length > 1 && <ul className="search-results" aria-label={t.locationResults}>{results.map((result) => <li key={result.id}><button onClick={() => go(result)}><PinIcon/><span>{result.name}</span><ArrowIcon/></button></li>)}</ul>}
   </div>;

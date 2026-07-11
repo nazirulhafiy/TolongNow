@@ -19,21 +19,26 @@ describe("homepage Bahasa Melayu copy", () => {
     expect(screen.getByText("Cuaca, amaran dan bantuan rasmi semasa yang berdekatan.")).toBeInTheDocument();
     expect(screen.getByText("Pautan satu ketik kepada kecemasan dan agensi rasmi.")).toBeInTheDocument();
     expect(screen.getByText("Senarai semak persediaan banjir yang tenang dan praktikal.")).toBeInTheDocument();
-    expect(screen.getByRole("dialog", { name: "Projek rintis Melaka sahaja" })).toHaveTextContent(
-      "Projek rintis ini kini hanya meliputi lokasi di Melaka.",
+    expect(screen.getByText("Digunakan hanya untuk mencari maklumat berdekatan. TolongNow tidak membina sejarah lokasi peribadi.")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Jika berlaku kecemasan, hubungi 999" })).not.toBeInTheDocument();
+    expect(screen.queryByText("Kecemasan mengancam nyawa")).not.toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: "Fasa rintis: Melaka sahaja" })).toHaveTextContent(
+      "Dalam fasa rintis ini, TolongNow menyediakan hasil pusat pemindahan berdasarkan lokasi untuk Melaka sahaja.",
     );
-    expect(screen.getByRole("button", { name: "Teruskan ke TolongNow" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cari di Melaka" })).toBeInTheDocument();
     expect(screen.queryByText("What do you need right now?")).not.toBeInTheDocument();
   });
 
   it("shows the pilot scope once and remembers dismissal", async () => {
+    Element.prototype.scrollIntoView = vi.fn();
     const firstVisit = render(<PreferencesProvider><Home/></PreferencesProvider>);
-    const dialog = await screen.findByRole("dialog", { name: "Malacca pilot only" });
-    expect(dialog).toHaveTextContent("This pilot currently serves locations in Malacca only.");
+    const dialog = await screen.findByRole("dialog", { name: "Pilot phase: Malacca only" });
+    expect(dialog).toHaveTextContent("During this pilot phase, TolongNow provides location-based evacuation-centre results for Malacca only.");
 
-    fireEvent.click(screen.getByRole("button", { name: "Continue to TolongNow" }));
+    fireEvent.click(screen.getByRole("button", { name: "Search in Malacca" }));
     await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
-    expect(localStorage.getItem("tolongnow-pilot-notice-v1")).toBe("dismissed");
+    expect(screen.getByRole("textbox", { name: "Neighbourhood, postcode, district or city" })).toHaveFocus();
+    expect(localStorage.getItem("tolongnow-pilot-notice-v2")).toBe("dismissed");
 
     firstVisit.unmount();
     render(<PreferencesProvider><Home/></PreferencesProvider>);
@@ -41,7 +46,7 @@ describe("homepage Bahasa Melayu copy", () => {
   });
 
   it("moves both location quick actions to the hero search and focuses the input", () => {
-    localStorage.setItem("tolongnow-pilot-notice-v1", "dismissed");
+    localStorage.setItem("tolongnow-pilot-notice-v2", "dismissed");
     const scrollIntoView = vi.fn();
     Element.prototype.scrollIntoView = scrollIntoView;
     render(<PreferencesProvider><Home/></PreferencesProvider>);
