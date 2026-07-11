@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 720" fill="none">
+  <defs>
+    <linearGradient id="river" x1="0" y1="430" x2="1600" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#16818B" stop-opacity=".06"/>
+      <stop offset=".45" stop-color="#16818B" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#16818B" stop-opacity=".07"/>
+    </linearGradient>
+    <pattern id="map-dots" width="42" height="42" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#0E6E77" fill-opacity=".12"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="720" fill="url(#map-dots)" opacity=".5"/>
+
+  <g stroke="#0E6E77" stroke-opacity=".13" stroke-width="2">
+    <path d="M-80 155C145 48 318 63 470 176c152 113 314 114 510 6 196-108 386-91 700 84"/>
+    <path d="M-120 207C112 94 304 108 462 220c158 112 330 124 531 17 201-107 405-83 721 101"/>
+    <path d="M-134 260C101 148 291 157 451 266c160 109 343 126 550 23 207-103 414-73 736 122"/>
+  </g>
+
+  <path d="M-100 580c245-84 388-135 588-101 198 34 315 146 511 153 197 7 330-89 701-119" stroke="url(#river)" stroke-width="160" stroke-linecap="round"/>
+  <path d="M-100 580c245-84 388-135 588-101 198 34 315 146 511 153 197 7 330-89 701-119" stroke="#0E6E77" stroke-opacity=".18" stroke-width="2" stroke-dasharray="9 13"/>
+  <path d="M-70 535c221-66 365-99 548-66 190 34 316 138 512 143 195 6 348-93 659-112" stroke="#E7F5F3" stroke-opacity=".68" stroke-width="3"/>
+
+  <g fill="#F4FBFA" stroke="#0E6E77" stroke-width="3" opacity=".72">
+    <path d="M260 575c0-19 15-34 34-34s34 15 34 34c0 24-34 57-34 57s-34-33-34-57Z"/>
+    <circle cx="294" cy="575" r="10"/>
+    <path d="M1268 355c0-16 13-29 29-29s29 13 29 29c0 20-29 48-29 48s-29-28-29-48Z"/>
+    <circle cx="1297" cy="355" r="8"/>
+  </g>
+
+  <g stroke="#0E6E77" stroke-opacity=".17">
+    <circle cx="294" cy="575" r="52"/>
+    <circle cx="294" cy="575" r="74"/>
+    <circle cx="1297" cy="355" r="45"/>
+  </g>
+</svg>
