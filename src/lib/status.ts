@@ -13,7 +13,13 @@ export function normalizeRiverStatus(value?: string | null): RiverStatus {
 }
 
 export function isWarningCurrentlyValid(validFrom?: string, validUntil?: string, now = new Date()): boolean {
-  if (validFrom && new Date(validFrom) > now) return false;
-  if (validUntil && new Date(validUntil) < now) return false;
+  if (validFrom && parseMalaysiaTimestamp(validFrom) > now) return false;
+  if (validUntil && parseMalaysiaTimestamp(validUntil) < now) return false;
   return true;
+}
+
+function parseMalaysiaTimestamp(value: string): Date {
+  const normalized = value.trim().replace(" ", "T");
+  const hasExplicitTimezone = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(normalized);
+  return new Date(hasExplicitTimezone ? normalized : `${normalized}+08:00`);
 }

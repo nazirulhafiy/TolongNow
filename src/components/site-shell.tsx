@@ -30,5 +30,5 @@ export function Footer() {
     <div className="footer-about"><Link href="/" className="brand brand-inverse" aria-label={language === "ms" ? "Laman utama TolongNow" : "TolongNow home"}><BrandLogo inverse /></Link><p><LocalizedText textKey="footerDescription"/></p></div>
     <div><h2><LocalizedText textKey="information"/></h2><Link href="/data-sources"><LocalizedText textKey="apiSources"/></Link><Link href="/about-data"><LocalizedText textKey="safetyLimitations"/></Link><Link href="/contacts"><LocalizedText textKey="contacts"/></Link></div>
     <div><h2><LocalizedText textKey="poweredByPublicData"/></h2><p><LocalizedText textKey="footerAttributionBefore"/> <a href="https://pasarapi.xyz/" target="_blank" rel="noreferrer">PasarAPI</a> <LocalizedText textKey="footerAttributionAfter"/></p></div>
-  </div><div className="container footer-bottom"><span><LocalizedText textKey="prototypeNotice"/></span><span>© 2026 TolongNow</span></div></footer>;
+  </div><div className="container footer-bottom"><span><a href="https://hafiy.my/" target="_blank" rel="noreferrer"><LocalizedText textKey="builtBy"/></a> · <LocalizedText textKey="prototypeNotice"/></span><span>© 2026 TolongNow</span></div></footer>;
 }

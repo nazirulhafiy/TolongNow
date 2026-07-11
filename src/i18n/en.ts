@@ -33,6 +33,7 @@ export const en = {
   footerAttributionBefore: "API discovery via",
   footerAttributionAfter: "— a developer directory for Southeast Asian APIs.",
   prototypeNotice: "Informational prototype · Not an emergency-dispatch service",
+  builtBy: "Built by hafiy.my",
   emergencyKicker: "Life-threatening emergency",
   emergencyService: "Call Malaysian emergency services",
   call999: "Call 999",

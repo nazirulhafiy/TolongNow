@@ -33,6 +33,7 @@ export const ms: Record<keyof typeof import("./en").en, string> = {
   footerAttributionBefore: "Penemuan API melalui",
   footerAttributionAfter: "— direktori pembangun untuk API Asia Tenggara.",
   prototypeNotice: "Prototaip maklumat · Bukan perkhidmatan penghantaran kecemasan",
+  builtBy: "Dibina oleh hafiy.my",
   emergencyKicker: "Kecemasan mengancam nyawa",
   emergencyService: "Hubungi perkhidmatan kecemasan Malaysia",
   call999: "Hubungi 999",

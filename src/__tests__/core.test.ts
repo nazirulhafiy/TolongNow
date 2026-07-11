@@ -30,6 +30,11 @@ describe("safety mappings", () => {
   it("preserves supported official river statuses and rejects others", () => { expect(normalizeRiverStatus("DANGER")).toBe("danger"); expect(normalizeRiverStatus("ERROR")).toBe("unknown"); });
   it("detects stale and invalid timestamps", () => { const now = new Date("2026-07-11T16:00:00Z"); expect(isStale("2024-02-23 14:45:00", 180, now)).toBe(true); expect(isStale("invalid", 180, now)).toBe(true); });
   it("honours warning validity dates", () => { const now = new Date("2026-07-11T12:00:00Z"); expect(isWarningCurrentlyValid("2026-07-11T00:00:00Z", "2026-07-12T00:00:00Z", now)).toBe(true); expect(isWarningCurrentlyValid(undefined, "2026-07-10T00:00:00Z", now)).toBe(false); });
+  it("interprets timezone-less MET Malaysia warning dates as UTC+8", () => {
+    expect(isWarningCurrentlyValid("2026-07-12T01:00:00", "2026-07-12T06:00:00", new Date("2026-07-11T19:00:00Z"))).toBe(true);
+    expect(isWarningCurrentlyValid("2026-07-12T01:00:00", undefined, new Date("2026-07-11T16:59:59Z"))).toBe(false);
+    expect(isWarningCurrentlyValid(undefined, "2026-07-12T06:00:00", new Date("2026-07-11T22:00:01Z"))).toBe(false);
+  });
 });
 
 describe("coverage, language and source truth", () => {
