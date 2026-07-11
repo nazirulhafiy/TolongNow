@@ -5,7 +5,7 @@
 
 TolongNow is a location-first flood assistance web app that brings together official Malaysian weather warnings, emergency contacts and nearby temporary evacuation centre (PPS) information in one clear, accessible interface.
 
-It was created for the PasarAPI mini challenge as a hackathon MVP—not an emergency-dispatch system or guaranteed evacuation-routing service.
+It was created for the PasarAPI mini challenge as a bounty MVP—not an emergency-dispatch system or guaranteed evacuation-routing service.
 
 ## Product problem
 
