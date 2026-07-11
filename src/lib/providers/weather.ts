@@ -62,6 +62,8 @@ export async function getWeatherWarnings(now = new Date()): Promise<WeatherWarni
     id: `${row.warning_issue.issued ?? "warning"}-${index}`,
     title: row.heading_en ?? row.warning_issue.title_en ?? row.heading_bm ?? "Official weather warning",
     description: row.text_en ?? row.text_bm ?? "See the official source for details.",
+    titleMs: row.heading_bm ?? row.warning_issue.title_bm ?? undefined,
+    descriptionMs: row.text_bm ?? undefined,
     affectedAreas: [],
     issuedAt: row.warning_issue.issued ?? undefined,
     validFrom: row.valid_from ?? undefined,

@@ -14,6 +14,25 @@ describe("provider response validation", () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("unavailable", { status: 503 })));
     await expect(getWeatherWarnings()).rejects.toThrow("Provider returned 503");
   });
+  it("preserves official English and Bahasa Melayu warning copy", async () => {
+    const rows = [{
+      warning_issue: { issued: "2026-07-12T01:00:00", title_en: "English issue", title_bm: "Isu BM" },
+      valid_from: "2026-07-12T01:00:00",
+      valid_to: "2026-07-16T00:00:00",
+      heading_en: "Warning on Thunderstorms",
+      heading_bm: "Amaran Ribut Petir",
+      text_en: "Thunderstorms are expected.",
+      text_bm: "Ribut petir dijangka berlaku.",
+    }];
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify(rows), { status: 200 })));
+    const result = await getWeatherWarnings(new Date("2026-07-11T19:00:00Z"));
+    expect(result[0]).toMatchObject({
+      title: "Warning on Thunderstorms",
+      description: "Thunderstorms are expected.",
+      titleMs: "Amaran Ribut Petir",
+      descriptionMs: "Ribut petir dijangka berlaku.",
+    });
+  });
   it("omits off sensors and invalid sentinel water levels", async () => {
     const rows = [{ a: "bad", b: "Bad sensor", c: 3.02, d: 101.53, m: -9999, n: "ERROR", q: "11/07/2026 23:00", s: "No Change", gg: "OFF" }];
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify(rows), { status: 200 })));

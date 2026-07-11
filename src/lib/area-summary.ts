@@ -10,7 +10,7 @@ export async function buildAreaSummary(location: AppLocation): Promise<AreaSumma
     getNearbyActiveJkmPps(location.coordinates),
   ]);
   const pps = ppsResult.status === "fulfilled" ? ppsResult.value : [];
-  const warnings = warningResult.status === "fulfilled" ? warningResult.value.filter((warning) => warningAppliesToLocation(warning.title + " " + warning.description, location)) : [];
+  const warnings = warningResult.status === "fulfilled" ? warningResult.value.filter((warning) => warningAppliesToLocation([warning.title, warning.description, warning.titleMs, warning.descriptionMs].filter(Boolean).join(" "), location)) : [];
   return {
     location,
     nearbyRiverStations: [],

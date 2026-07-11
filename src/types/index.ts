@@ -42,6 +42,8 @@ export type WeatherWarning = {
   id: string;
   title: string;
   description: string;
+  titleMs?: string;
+  descriptionMs?: string;
   affectedAreas: string[];
   issuedAt?: string;
   validFrom?: string;
