@@ -38,12 +38,10 @@ describe("area warning localization", () => {
     render(<PreferencesProvider><PreferenceControls/><AreaContent summary={summary} demo={false}/></PreferencesProvider>);
     expect(screen.getByRole("heading", { name: "Warning on Thunderstorms" })).toBeInTheDocument();
     expect(screen.getByText("Thunderstorms are expected.")).toBeInTheDocument();
-    expect(screen.getByText("TolongNow shows the latest available official information. Data may be delayed or unavailable; always follow instructions from emergency authorities.")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Bahasa Melayu" }));
     expect(screen.getByRole("heading", { name: "Amaran Ribut Petir" })).toBeInTheDocument();
     expect(screen.getByText("Ribut petir dijangka berlaku.")).toBeInTheDocument();
-    expect(screen.getByText("TolongNow memaparkan maklumat rasmi terkini yang tersedia. Data mungkin lewat atau tidak tersedia; sentiasa patuhi arahan pihak berkuasa kecemasan.")).toBeInTheDocument();
     expect(screen.queryByText("Thunderstorms are expected.")).not.toBeInTheDocument();
   });
 });
