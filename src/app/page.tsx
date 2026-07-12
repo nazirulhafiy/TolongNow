@@ -4,7 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { LocationSearch } from "@/components/location-search";
 import { usePreferences } from "@/components/preferences";
-import { ArrowIcon, PeopleIcon, PhoneIcon, PinIcon, ShieldIcon } from "@/components/icons";
+import { AlertIcon, ArrowIcon, CloudIcon, PeopleIcon, PhoneIcon, PinIcon, ShieldIcon } from "@/components/icons";
+import { productionApiCount } from "@/config/data-sources";
 
 export default function Home() {
   const { t } = usePreferences();
@@ -60,6 +61,16 @@ export default function Home() {
       <Link href="/contacts" className="quick-card"><span className="quick-icon red"><PhoneIcon/></span><div><h3>{t.contacts}</h3><p>{t.contactsCardDescription}</p></div><ArrowIcon/></Link>
       <Link href="/prepare" className="quick-card"><span className="quick-icon amber"><ShieldIcon/></span><div><h3>{t.prepare}</h3><p>{t.prepareCardDescription}</p></div><ArrowIcon/></Link>
     </div></div></section>
+
+    <section id="data-sources-overview" className="home-data-section" aria-labelledby="home-data-title"><div className="container">
+      <div className="home-data-intro"><div><span className="eyebrow">{t.homeDataEyebrow}</span><h2 id="home-data-title">{t.homeDataTitle}</h2></div><div><p>{t.homeDataIntro.replace("{count}", String(productionApiCount))}</p><Link href="/data-sources" className="home-data-link">{t.homeDataCta}<ArrowIcon/></Link></div></div>
+      <div className="home-data-grid">
+        <article><span className="home-data-icon weather"><CloudIcon/></span><span className="home-data-step">01 · MET Malaysia</span><h3>{t.homeDataWeatherTitle}</h3><p>{t.homeDataWeatherBody}</p></article>
+        <article><span className="home-data-icon evacuation"><PeopleIcon/></span><span className="home-data-step">02 · JKM InfoBencana</span><h3>{t.homeDataPpsTitle}</h3><p>{t.homeDataPpsBody}</p></article>
+        <article><span className="home-data-icon clarity"><AlertIcon/></span><span className="home-data-step">03 · TolongNow</span><h3>{t.homeDataClarityTitle}</h3><p>{t.homeDataClarityBody}</p></article>
+      </div>
+      <p className="home-data-note"><ShieldIcon/>{t.homeDataNote}</p>
+    </div></section>
 
   </main>;
 }
