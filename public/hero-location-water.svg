@@ -22,16 +22,4 @@
   <path d="M-100 580c245-84 388-135 588-101 198 34 315 146 511 153 197 7 330-89 701-119" stroke="#0E6E77" stroke-opacity=".18" stroke-width="2" stroke-dasharray="9 13"/>
   <path d="M-70 535c221-66 365-99 548-66 190 34 316 138 512 143 195 6 348-93 659-112" stroke="#E7F5F3" stroke-opacity=".68" stroke-width="3"/>
 
-  <g fill="#F4FBFA" stroke="#0E6E77" stroke-width="3" opacity=".72">
-    <path d="M260 575c0-19 15-34 34-34s34 15 34 34c0 24-34 57-34 57s-34-33-34-57Z"/>
-    <circle cx="294" cy="575" r="10"/>
-    <path d="M1268 355c0-16 13-29 29-29s29 13 29 29c0 20-29 48-29 48s-29-28-29-48Z"/>
-    <circle cx="1297" cy="355" r="8"/>
-  </g>
-
-  <g stroke="#0E6E77" stroke-opacity=".17">
-    <circle cx="294" cy="575" r="52"/>
-    <circle cx="294" cy="575" r="74"/>
-    <circle cx="1297" cy="355" r="45"/>
-  </g>
 </svg>
