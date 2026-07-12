@@ -24,7 +24,9 @@ export async function buildAreaSummary(location: AppLocation): Promise<AreaSumma
       forecast: forecastResult.status === "fulfilled" && forecastResult.value.length > 0 ? { available: true } : { available: false, message: "A forecast for this location is temporarily unavailable." },
       pps: ppsResult.status === "fulfilled" && pps.length > 0
         ? { available: true, message: "Current official JKM listings found nearby. Confirm status before travelling." }
-        : { available: false, message: ppsResult.status === "rejected" ? "Live JKM evacuation-centre data is temporarily unavailable. Use the official JKM lookup." : "No active JKM evacuation centres were found within 15 km. Check the official JKM lookup before travelling." },
+        : ppsResult.status === "rejected"
+          ? { available: false, message: "Live JKM evacuation-centre data is temporarily unavailable." }
+          : { available: false },
     },
     mode: "live",
   };

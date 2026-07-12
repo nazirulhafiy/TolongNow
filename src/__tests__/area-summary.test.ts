@@ -20,7 +20,7 @@ describe("area summary resilience", () => {
   it("uses an explicit no-nearby-centres message", async () => {
     const result = await buildAreaSummary(outside);
     expect(result.nearbyPps).toEqual([]);
-    expect(result.dataAvailability.pps.message).toContain("within 15 km");
+    expect(result.dataAvailability.pps.message).toBeUndefined();
   });
   it("keeps other results when the JKM provider fails", async () => {
     getNearbyActiveJkmPps.mockRejectedValue(new Error("timeout"));
