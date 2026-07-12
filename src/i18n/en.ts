@@ -34,7 +34,7 @@ export const en = {
   prototypeNotice: "Informational prototype · Not an emergency-dispatch service",
   builtBy: "Built by hafiy.my",
   needNow: "What do you need right now?",
-  nextSteps: "Clear next steps, with official sources and honest coverage limits.",
+  nextSteps: "Clear next steps, using official information.",
   areaCardDescription: "Weather, warnings and current official assistance nearby.",
   contactsCardDescription: "One-tap emergency and official agency links.",
   prepareCardDescription: "A calm, practical flood-preparedness checklist.",

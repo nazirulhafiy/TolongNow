@@ -15,7 +15,7 @@ describe("homepage Bahasa Melayu copy", () => {
     fireEvent.click(screen.getByRole("button", { name: "Bahasa Melayu" }));
 
     expect(screen.getByRole("heading", { name: "Apakah bantuan yang anda perlukan sekarang?" })).toBeInTheDocument();
-    expect(screen.getByText("Langkah seterusnya yang jelas, dengan sumber rasmi dan had liputan yang telus.")).toBeInTheDocument();
+    expect(screen.getByText("Langkah seterusnya yang jelas, berdasarkan maklumat rasmi.")).toBeInTheDocument();
     expect(screen.getByText("Cuaca, amaran dan bantuan rasmi semasa yang berdekatan.")).toBeInTheDocument();
     expect(screen.getByText("Pautan satu ketik kepada kecemasan dan agensi rasmi.")).toBeInTheDocument();
     expect(screen.getByText("Senarai semak persediaan banjir yang tenang dan praktikal.")).toBeInTheDocument();

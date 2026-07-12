@@ -34,7 +34,7 @@ export const ms: Record<keyof typeof import("./en").en, string> = {
   prototypeNotice: "Prototaip maklumat · Bukan perkhidmatan penghantaran kecemasan",
   builtBy: "Dibina oleh hafiy.my",
   needNow: "Apakah bantuan yang anda perlukan sekarang?",
-  nextSteps: "Langkah seterusnya yang jelas, dengan sumber rasmi dan had liputan yang telus.",
+  nextSteps: "Langkah seterusnya yang jelas, berdasarkan maklumat rasmi.",
   areaCardDescription: "Cuaca, amaran dan bantuan rasmi semasa yang berdekatan.",
   contactsCardDescription: "Pautan satu ketik kepada kecemasan dan agensi rasmi.",
   prepareCardDescription: "Senarai semak persediaan banjir yang tenang dan praktikal.",
