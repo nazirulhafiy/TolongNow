@@ -29,10 +29,8 @@ export function PrepareContent(){const {language}=usePreferences();return <main 
 const limits = [
   ["TolongNow is an informational mini bounty prototype.","TolongNow ialah prototaip maklumat yang dibangunkan untuk mini bounty."],
   ["It does not dispatch or monitor rescue services.","Ia tidak menghantar atau memantau perkhidmatan penyelamat."],
-  ["It does not guarantee that any temporary evacuation centre (PPS) is open or available.","Ia tidak menjamin mana-mana Pusat Pemindahan Sementara (PPS) dibuka atau tersedia."],
   ["It does not verify that a road is passable or provide evacuation routing.","Ia tidak mengesahkan bahawa jalan boleh dilalui atau menyediakan laluan pemindahan."],
   ["It does not generate official warnings or risk scores.","Ia tidak menjana amaran rasmi atau skor risiko."],
-  ["Live information may be delayed, stale or temporarily unavailable.","Maklumat langsung mungkin lewat, lapuk atau tidak tersedia buat sementara waktu."],
   ["It does not replace instructions from emergency authorities.","Ia tidak menggantikan arahan pihak berkuasa kecemasan."],
 ] as const;
 
