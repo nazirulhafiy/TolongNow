@@ -20,7 +20,7 @@ describe("area summary resilience", () => {
   it("uses an explicit no-nearby-centres message", async () => {
     const result = await buildAreaSummary(outside);
     expect(result.nearbyPps).toEqual([]);
-    expect(result.dataAvailability.pps.message).toBeUndefined();
+    expect(result.dataAvailability.pps.message).toContain("within 15 km");
   });
   it("keeps other results when the JKM provider fails", async () => {
     getNearbyActiveJkmPps.mockRejectedValue(new Error("timeout"));
@@ -36,5 +36,23 @@ describe("area summary resilience", () => {
     ]);
     const result = await buildAreaSummary(outside);
     expect(result.weatherWarnings.map((warning) => warning.id)).toEqual(["local-marine", "local"]);
+  });
+  it("shows warnings that mention Melaka while excluding loose-word matches", async () => {
+    getWeatherWarnings.mockResolvedValue([
+      { id: "melaka-waters", title: "Warning on Thunderstorms", description: "Thunderstorms are expected over the waters of Perlis, Selangor and Melaka.", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
+      { id: "melaka-strait", title: "Warning on Thunderstorms", description: "Thunderstorms are expected over the Straits of Melaka.", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
+      { id: "wrong-tengah", title: "Thunderstorm Warning", description: "Thunderstorms are expected in Perak Tengah.", descriptionMs: "Ribut petir dijangka di bahagian tengah Perak.", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
+      { id: "melaka-state", title: "Thunderstorm Warning", description: "Thunderstorms are expected in the state of Melaka.", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
+      { id: "melaka-tengah", title: "Thunderstorm Warning", description: "Thunderstorms are expected in Melaka Tengah.", affectedAreas: [], officialProvider: "MET", sourceUrl: "x", pasarApiEntryId: "weather/warning" },
+    ]);
+    const result = await buildAreaSummary({
+      slug: "selected-location",
+      name: "Melaka Tengah, Melaka, Malaysia",
+      district: "Melaka Tengah",
+      state: "Melaka",
+      coordinates: { latitude: 2.2301451, longitude: 102.2453068 },
+      isPilot: true,
+    });
+    expect(result.weatherWarnings.map((warning) => warning.id)).toEqual(["melaka-waters", "melaka-strait", "melaka-state", "melaka-tengah"]);
   });
 });

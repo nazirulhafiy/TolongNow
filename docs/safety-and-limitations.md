@@ -17,3 +17,5 @@ Users in immediate danger should call **999**.
 ## Data-failure behaviour
 
 External requests have timeouts, runtime response validation and provider-specific caching. The area summary uses independent settled requests, so weather warnings and contacts remain visible if river or forecast data fails. Stale river observations are omitted rather than relabelled as current. No live failure is silently replaced with demonstration data.
+
+A successful empty JKM response means the official feed currently lists no active PPS within the search radius; it is not labelled as an outage. Previously reported centres are not substituted because their current operating status and closure time cannot be verified from the active-centre endpoint.

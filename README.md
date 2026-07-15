@@ -22,7 +22,7 @@ During floods, essential information is spread across provider portals. TolongNo
 - Transparent `/data-sources` page generated from one API registry
 - Partial results when an external provider fails
 
-The live evacuation-centre pilot is centred on Melaka. TolongNow checks JKM’s nationwide active flood-centre listing and shows the nearest three validated centres within 15 km of a submitted location.
+The live evacuation-centre pilot is centred on Melaka. TolongNow checks JKM’s nationwide active flood-centre listing and shows the nearest three validated centres within 15 km of a submitted location. A successful empty JKM response is shown as no active centres nearby, while provider failures remain clearly labelled as unavailable.
 
 Supported test locations:
 
@@ -36,7 +36,9 @@ Next.js App Router and TypeScript provide Server Components for data-heavy pages
 
 The central registry at `src/config/data-sources.ts` is the source of truth for production API count, homepage attribution and `/data-sources`. Raw provider schemas remain inside `src/lib/providers/`.
 
-Evacuation-centre records include current status, source, retrieval time, distance, occupants, families and capacity. The live provider is schema-validated and failures degrade to the official JKM link. The historical demonstration fixture lives in `src/data/demo-scenarios/` and is not used by the live summary builder.
+Evacuation-centre records include current status, source, retrieval time, distance, occupants, families and capacity. The live provider validates both JKM’s populated response object and its provider-specific empty-array response; failures degrade to the official JKM link. Historical centres never replace an empty or failed live result. The historical demonstration fixture lives in `src/data/demo-scenarios/` and is not used by the live summary builder.
+
+Weather warnings are matched against complete district or state names in the official English and Bahasa Melayu text. This retains warnings that mention Melaka, including its waters or strait, while preventing unrelated warnings from matching a loose word such as `Tengah`.
 
 ## APIs discovered through PasarAPI
 
@@ -99,7 +101,7 @@ git diff --check
 
 Import the repository into Vercel, keep the detected Next.js settings, add `NOMINATIM_USER_AGENT`, and deploy. Replace these placeholders after publishing:
 
-- Live URL: `https://YOUR-DEPLOYMENT.example`
+- Live URL: `https://tolong.hafiy.my`
 - GitHub URL: `https://github.com/nazirulhafiy/TolongNow`
 
 ## Bounty submission
@@ -117,4 +119,4 @@ Import the repository into Vercel, keep the detected Next.js settings, add `NOMI
 
 Source code: [github.com/nazirulhafiy/TolongNow](https://github.com/nazirulhafiy/TolongNow)
 
-The live deployment URL will be added after the site is published.
+Live site: [tolong.hafiy.my](https://tolong.hafiy.my)

@@ -1,10 +1,10 @@
 # Pilot coverage
 
-> The live temporary evacuation centre (PPS) pilot is centred on Melaka, where JKM currently publishes active flood-evacuation locations. TolongNow still checks the nationwide JKM flood listing and filters centres by distance for any submitted Malaysian location.
+> The live temporary evacuation centre (PPS) pilot is centred on Melaka. TolongNow checks JKM’s nationwide active flood-centre listing and filters centres by distance for any submitted Malaysian location; the official listing may legitimately contain no active centres.
 
 ## Melaka Tengah
 
-This is the primary live pilot. TolongNow retrieves current JKM InfoBencana centres within 15 km, validates the official response, shows the nearest three centres and includes occupant, family and capacity figures. Weather warnings and district forecasts load independently.
+This is the primary live pilot. When centres are active, TolongNow retrieves current JKM InfoBencana centres within 15 km, validates the official response, shows the nearest three centres and includes occupant, family and capacity figures. Weather warnings and district forecasts load independently.
 
 ## Alor Gajah
 
@@ -13,6 +13,10 @@ Alor Gajah is the second live pilot location. Its active JKM centres are handled
 ## Outside the pilot
 
 Submitted Malaysian locations use the same live JKM lookup. When no active centre is returned within 15 km, TolongNow shows that exact limitation and links to the official JKM service instead of guessing.
+
+## Empty and historical results
+
+JKM returns a bare empty array (`[]`) when its current nationwide listing has no active centres. TolongNow treats that as a successful current lookup, not a provider outage. Previously active centres are not shown as current or used as a fallback because JKM does not expose closure dates through this endpoint and the repository does not retain a Melaka history.
 
 ## Demonstration fixture
 

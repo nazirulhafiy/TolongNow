@@ -1,6 +1,6 @@
 # TolongNow data reconnaissance
 
-Last verified: 11 July 2026 (Asia/Kuching). PasarAPI catalogue version observed: 2026-07-11.
+Last verified: 15 July 2026 (Asia/Kuching). PasarAPI catalogue version observed: 2026-07-11.
 
 PasarAPI (`https://pasarapi.xyz/`) was used as the API discovery and implementation-reference layer. It does not own or endorse the government data below. The machine-readable catalogue checked during reconnaissance was `https://pasarapi.xyz/api/catalogue`.
 
@@ -55,7 +55,7 @@ The `/apis/...` paths are PasarAPI SPA routes observed during verification. The 
 - Relevant fields: `warning_issue.issued`, BM/EN issue titles, `valid_from`, `valid_to`, BM/EN headings, text and instructions
 - Example shape: `{ "warning_issue": { "issued": "2026-07-11T20:50:00", "title_en": "..." }, "valid_from": "...", "valid_to": "...", "heading_en": "...", "text_en": "..." }`
 - Limitations: no canonical warning ID, structured affected-area list, warning type or severity. TolongNow does not derive severity.
-- Decision: selected; validity dates are checked and official wording is preserved
+- Decision: selected; validity dates are checked, official wording is preserved, and complete district or state names are used for local matching so unrelated loose-word matches are excluded
 
 ## Selected cautiously: JPS Public InfoBanjir river readings
 
@@ -106,6 +106,8 @@ The `/apis/...` paths are PasarAPI SPA routes observed during verification. The 
 The official JKM active temporary evacuation centre (PPS) service is https://infobencanajkmv2.jkm.gov.my/landing/. Malaysia.gov.my describes it at https://www.malaysia.gov.my/my/digital-services/semakan-pusat-pemindahan-sementara-pps-aktif.
 
 On 12 July 2026 the JKM public UI showed six active flood centres in Melaka, 983 victims and 313 families, updated at 01:05 AM. The nationwide flood endpoint used by JKM’s own public interface returned the same six centres with names, coordinates, state, district, DUN/mukim, victim totals, family totals and capacity: https://infobencanajkmv2.jkm.gov.my/api/pusat-buka.php?a=0&b=1.
+
+On 15 July 2026 the same endpoint returned HTTP 200 with a bare empty array (`[]`), and the public JKM page showed no active-centre markers. TolongNow treats this provider-specific empty response as a successful current lookup with no active centres, not as an outage.
 
 This is an official but undocumented internal endpoint. It returns JSON with an incorrect `text/html` content type and provides no CORS, cache metadata, schema version, SLA or response-level update timestamp. TolongNow therefore calls it server-side only, applies an eight-second timeout, caches successful responses for five minutes, validates a strict Zod schema, filters flood records, ranks centres by distance and falls back to the official JKM page when unavailable. Retrieval time is shown separately and is not represented as JKM’s source-update time.
 

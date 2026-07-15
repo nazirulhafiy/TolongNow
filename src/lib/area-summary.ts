@@ -26,16 +26,27 @@ export async function buildAreaSummary(location: AppLocation): Promise<AreaSumma
         ? { available: true, message: "Current official JKM listings found nearby. Confirm status before travelling." }
         : ppsResult.status === "rejected"
           ? { available: false, message: "Live JKM evacuation-centre data is temporarily unavailable." }
-          : { available: false },
+          : { available: false, message: "The current official JKM feed lists no active evacuation centres within 15 km of this location." },
     },
     mode: "live",
   };
 }
 
 function warningAppliesToLocation(text: string, location: AppLocation): boolean {
-  const haystack = text.toLowerCase();
-  const terms = [location.name, location.district, location.state === "Malaysia" ? undefined : location.state]
+  const haystack = normalizeWarningText(text);
+  const terms = [location.district, location.state === "Malaysia" ? undefined : location.state, location.name.split(",")[0]]
     .filter((term): term is string => Boolean(term))
-    .flatMap((term) => [term.toLowerCase(), ...term.toLowerCase().split(/[,/\s]+/).filter((part) => part.length >= 5 && part !== "malaysia" && !/^\d+$/.test(part))]);
-  return terms.some((term) => haystack.includes(term));
+    .map(normalizeWarningText)
+    .filter((term) => term !== "malaysia");
+
+  return [...new Set(terms)].some((term) => ` ${haystack} `.includes(` ${term} `));
+}
+
+function normalizeWarningText(text: string): string {
+  return text
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }

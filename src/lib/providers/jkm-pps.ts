@@ -19,7 +19,10 @@ const pointSchema = z.object({
   kapasiti: z.coerce.number().nonnegative(),
 });
 
-const responseSchema = z.object({ points: z.array(pointSchema).max(500) });
+const responseSchema = z.union([
+  z.object({ points: z.array(pointSchema).max(500) }),
+  z.tuple([]),
+]);
 
 export async function getNearbyActiveJkmPps(coordinates: Coordinates, maxDistanceKm = 15, limit = 3): Promise<PpsLocation[]> {
   const controller = new AbortController();
@@ -31,7 +34,8 @@ export async function getNearbyActiveJkmPps(coordinates: Coordinates, maxDistanc
       headers: { Accept: "application/json" },
     });
     if (!response.ok) throw new Error(`JKM provider returned ${response.status}`);
-    const { points } = responseSchema.parse(await response.json());
+    const parsed = responseSchema.parse(await response.json());
+    const points = Array.isArray(parsed) ? [] : parsed.points;
     const retrievedAt = new Date().toISOString();
     const centres = points
       .filter((point) => point.bencana.toLowerCase() === "banjir")

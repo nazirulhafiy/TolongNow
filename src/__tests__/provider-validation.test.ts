@@ -53,6 +53,10 @@ describe("provider response validation", () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ points: [{ id: 1, name: "Broken" }] }), { status: 200 })));
     await expect(getNearbyActiveJkmPps({ latitude: 2.27, longitude: 102.19 })).rejects.toThrow();
   });
+  it("treats JKM's empty-array response as no active centres", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify([]), { status: 200 })));
+    await expect(getNearbyActiveJkmPps({ latitude: 2.27, longitude: 102.19 })).resolves.toEqual([]);
+  });
   it("limits JKM results to the nearest three centres", async () => {
     const points = Array.from({ length: 4 }, (_, index) => ({ id: index, name: `CENTRE ${index}`, latti: 2.27 + index * 0.001, longi: 102.19, negeri: "Melaka", daerah: "Melaka Tengah", mukim: "Dun Paya Rumput", bencana: "Banjir", mangsa: 1, keluarga: 1, kapasiti: 10 }));
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ points }), { status: 200 })));

@@ -14,6 +14,7 @@ const availabilityMs: Record<string,string> = {
   "A forecast for this location is temporarily unavailable.": "Ramalan untuk lokasi ini tidak tersedia buat sementara waktu.",
   "Current official JKM listings found nearby. Confirm status before travelling.": "Senarai rasmi JKM semasa ditemukan berdekatan. Sahkan status sebelum bergerak.",
   "Live JKM evacuation-centre data is temporarily unavailable.": "Data langsung PPS JKM tidak tersedia buat sementara waktu.",
+  "The current official JKM feed lists no active evacuation centres within 15 km of this location.": "Suapan rasmi JKM semasa tidak menyenaraikan PPS aktif dalam lingkungan 15 km dari lokasi ini.",
 };
 
 export function AreaContent({summary,demo}:{summary:AreaSummary;demo:boolean}) {
