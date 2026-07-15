@@ -4,6 +4,7 @@ import { getPilotArea, isInsidePilotArea } from "@/config/pilot-areas";
 import { buildAreaSummary } from "@/lib/area-summary";
 import { reverseGeocodeMalaysia } from "@/lib/providers/geocoding";
 import { sriMudaDemonstration } from "@/data/demo-scenarios/sri-muda-2021";
+import { getReportedPpsFallback } from "@/data/reported-pps-melaka-2026-07-12";
 import { AreaContent } from "@/components/area-content";
 import type { AppLocation } from "@/types";
 
@@ -31,6 +32,10 @@ export default async function AreaPage({ params, searchParams }: Props) {
   }
   if (!location) notFound();
   const summary = demo ? sriMudaDemonstration : await buildAreaSummary(location);
-  return <AreaContent summary={summary} demo={demo}/>;
+  const fallbackEnabled = process.env.SHOW_REPORTED_PPS_FALLBACK === "true" || query.historyPreview === "true";
+  const reportedPpsFallback = fallbackEnabled && !demo && !summary.nearbyPps.length
+    ? getReportedPpsFallback(location.district)
+    : undefined;
+  return <AreaContent summary={summary} demo={demo} reportedPpsFallback={reportedPpsFallback}/>;
 }
 function inferDistrict(name: string): string | undefined { const first = name.split(",")[0]?.trim(); return first && first !== "Selected location" && first !== "My current location" ? first : undefined; }

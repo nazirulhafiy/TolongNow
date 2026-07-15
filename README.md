@@ -36,7 +36,7 @@ Next.js App Router and TypeScript provide Server Components for data-heavy pages
 
 The central registry at `src/config/data-sources.ts` is the source of truth for production API count, homepage attribution and `/data-sources`. Raw provider schemas remain inside `src/lib/providers/`.
 
-Evacuation-centre records include current status, source, retrieval time, distance, occupants, families and capacity. The live provider validates both JKM’s populated response object and its provider-specific empty-array response; failures degrade to the official JKM link. Historical centres never replace an empty or failed live result. The historical demonstration fixture lives in `src/data/demo-scenarios/` and is not used by the live summary builder.
+Evacuation-centre records include current status, source, retrieval time, distance, occupants, families and capacity. The live provider validates both JKM’s populated response object and its provider-specific empty-array response; failures degrade to the official JKM link. When `SHOW_REPORTED_PPS_FALLBACK` is enabled and no live nearby centre is returned, TolongNow can show separately labelled, source-linked previously reported centres. The historical demonstration fixture lives in `src/data/demo-scenarios/` and is not used by the live summary builder.
 
 Weather warnings are matched against complete district or state names in the official English and Bahasa Melayu text. This retains warnings that mention Melaka, including its waters or strait, while preventing unrelated warnings from matching a loose word such as `Tengah`.
 
@@ -84,6 +84,8 @@ Open `http://localhost:3000`.
 ```text
 NOMINATIM_USER_AGENT="TolongNow/1.0 (https://tolongnow.example)"
 ```
+
+`SHOW_REPORTED_PPS_FALLBACK` defaults to `false`. Set it to `true` to show sourced previously reported PPS when the live JKM lookup returns no nearby active centre. Live JKM results always take priority. A district-level month-and-year label distinguishes these results from live data, and the notice links to the source article.
 
 No API keys, authentication or database are required.
 

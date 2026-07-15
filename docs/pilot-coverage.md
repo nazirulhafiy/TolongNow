@@ -16,7 +16,7 @@ Submitted Malaysian locations use the same live JKM lookup. When no active centr
 
 ## Empty and historical results
 
-JKM returns a bare empty array (`[]`) when its current nationwide listing has no active centres. TolongNow treats that as a successful current lookup, not a provider outage. Previously active centres are not shown as current or used as a fallback because JKM does not expose closure dates through this endpoint and the repository does not retain a Melaka history.
+JKM returns a bare empty array (`[]`) when its current nationwide listing has no active centres. TolongNow treats that as a successful current lookup, not a provider outage. If `SHOW_REPORTED_PPS_FALLBACK=true`, the area page can instead show named centres from a dated report for the selected district. One district-level “Previously reported in July 2026” label distinguishes the fallback from live data, and its source link sits beside the district totals. District totals are kept separate because the report does not provide per-centre occupancy.
 
 ## Demonstration fixture
 

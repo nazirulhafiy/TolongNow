@@ -113,6 +113,10 @@ This is an official but undocumented internal endpoint. It returns JSON with an 
 
 Decision: move the live evacuation-centre pilot to **Melaka Tengah and Alor Gajah** while using the same nationwide feed for submitted Malaysian locations. Show only the nearest three active centres within 15 km so results remain locally relevant. Retain the older Sungai Serai record only inside the clearly labelled historical demonstration fixture; do not use it in live summaries.
 
+### Optional sourced reported-PPS fallback
+
+Kosmo reported seven named PPS across Melaka on 12 July 2026: four in Melaka Tengah, two in Alor Gajah and one in Jasin. The article provided district totals but no per-centre occupancy or coordinates. Three Melaka Tengah school locations were subsequently matched to public EMIS directory records for their postal addresses and coordinates. OpenStreetMap confirmed the Pantai Kundor locality and postcode but not a JAPERUN building, so that card links to an OpenStreetMap locality search rather than claiming an exact pin. The article also contained conflicting statewide aggregates: the body named seven PPS while the image caption said eight, and the district family figures totalled 318 while the statewide figure said 350. TolongNow therefore uses only the seven named centres and their stated district totals. When the fallback setting is enabled, live JKM results remain authoritative; reported centres appear only when no live nearby result is returned, carry one district-level month-and-year label and link directly to the article: https://www.kosmo.com.my/2026/07/12/2-lagi-pps-dibuka-di-melaka-mangsa-banjir-kini-1005-orang/.
+
 ## Roads and emergency sources
 
 No road-closure API appeared in the relevant PasarAPI Malaysia catalogue rows. JKR’s official eBencana portal is https://bencana.jkr.gov.my/. Its structured records can contain conflicting status and remarks, so TolongNow links to the portal and does not normalize or recommend routes.
