@@ -22,7 +22,7 @@ During floods, essential information is spread across provider portals. TolongNo
 - Transparent `/data-sources` page generated from one API registry
 - Partial results when an external provider fails
 
-The live evacuation-centre pilot is centred on Melaka. TolongNow checks JKM’s nationwide active flood-centre listing and shows the nearest three validated centres within 15 km of a submitted location. A successful empty JKM response is shown as no active centres nearby, while provider failures remain clearly labelled as unavailable.
+The live evacuation-centre pilot is centred on Melaka. TolongNow checks JKM’s nationwide active flood-centre listing and shows the nearest three validated centres within 15 km of a submitted location. A successful empty JKM response is shown as no active centres nearby unless the sourced reported-PPS fallback is enabled for that district; provider failures remain clearly labelled as unavailable.
 
 Supported test locations:
 

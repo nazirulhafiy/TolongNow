@@ -52,6 +52,7 @@ The `/apis/...` paths are PasarAPI SPA routes observed during verification. The 
 - Production caching: 5 minutes
 - Vercel suitability: server-side and browser accessible; CORS `*`; `OPTIONS` returned 200
 - Real request: 200 with eight currently returned rows. A sample was issued `2026-07-11T20:50:00` and valid to `2026-07-16T00:00:00`.
+- Timestamp interpretation: warning values do not include an explicit timezone. TolongNow interprets them as Malaysia time (UTC+8) before validity checks or display formatting; values that include an explicit timezone retain that offset.
 - Relevant fields: `warning_issue.issued`, BM/EN issue titles, `valid_from`, `valid_to`, BM/EN headings, text and instructions
 - Example shape: `{ "warning_issue": { "issued": "2026-07-11T20:50:00", "title_en": "..." }, "valid_from": "...", "valid_to": "...", "heading_en": "...", "text_en": "..." }`
 - Limitations: no canonical warning ID, structured affected-area list, warning type or severity. TolongNow does not derive severity.
