@@ -29,6 +29,7 @@ Supported test locations:
 - `/area/melaka-tengah` — primary live JKM pilot
 - `/area/alor-gajah` — secondary live JKM pilot
 - `/area/taman-sri-muda?demo=true` — non-current demonstration scenario
+- `/area/selected-location?...&historyPreview=true#nearby-help` — review-only reported-PPS fallback when no live nearby centre is returned
 
 ## Architecture
 
@@ -87,6 +88,8 @@ NOMINATIM_USER_AGENT="TolongNow/1.0 (https://tolongnow.example)"
 
 `SHOW_REPORTED_PPS_FALLBACK` defaults to `false`. Set it to `true` to show sourced previously reported PPS when the live JKM lookup returns no nearby active centre. Live JKM results always take priority. A district-level month-and-year label distinguishes these results from live data, and the notice links to the source article.
 
+For UI review without changing the deployment setting, add `historyPreview=true` to a non-demonstration area URL. This override only makes the same dated fallback eligible; it does not replace a live JKM result or remove the “Previously reported” label.
+
 No API keys, authentication or database are required.
 
 ## Verification commands
@@ -101,7 +104,17 @@ git diff --check
 
 ## Vercel deployment
 
-Import the repository into Vercel, keep the detected Next.js settings, add `NOMINATIM_USER_AGENT`, and deploy. Replace these placeholders after publishing:
+Import the repository into Vercel, keep the detected Next.js settings, add `NOMINATIM_USER_AGENT`, and deploy. To enable the reported-PPS fallback in production, also set `SHOW_REPORTED_PPS_FALLBACK=true` for the Production environment and redeploy.
+
+After each production deployment:
+
+1. Confirm the deployment is `READY` and points to the intended Git commit.
+2. Confirm the selected-location route returns HTTP 200.
+3. Check that live JKM centres take priority when present.
+4. When no live centre is returned, verify the July 2026 label, district totals, source link, addresses, and OpenStreetMap actions.
+5. Check production runtime errors and the browser console before recording a visual QA pass.
+
+Production links:
 
 - Live URL: `https://tolong.hafiy.my`
 - GitHub URL: `https://github.com/nazirulhafiy/TolongNow`

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { distanceKm, sortPpsByDistance } from "@/lib/distance";
 import { isInsidePilotArea } from "@/config/pilot-areas";
-import { isStale } from "@/lib/timestamps";
+import { formatTimestamp, isStale } from "@/lib/timestamps";
 import { isWarningCurrentlyValid, normalizeRiverStatus, ppsStatusLabels } from "@/lib/status";
 import { malaysiaOnly } from "@/lib/providers/geocoding";
 import { dataSources, productionApiCount, productionDataSources } from "@/config/data-sources";
@@ -29,6 +29,10 @@ describe("safety mappings", () => {
   it("maps every PPS status to the required label", () => expect(ppsStatusLabels).toEqual({ active: "Active now", historical: "Previously used as an evacuation centre", inactive: "Confirmed inactive", unknown: "Current operating status unknown" }));
   it("preserves supported official river statuses and rejects others", () => { expect(normalizeRiverStatus("DANGER")).toBe("danger"); expect(normalizeRiverStatus("ERROR")).toBe("unknown"); });
   it("detects stale and invalid timestamps", () => { const now = new Date("2026-07-11T16:00:00Z"); expect(isStale("2024-02-23 14:45:00", 180, now)).toBe(true); expect(isStale("invalid", 180, now)).toBe(true); });
+  it("formats timezone-less provider timestamps as Malaysia time", () => {
+    expect(formatTimestamp("2026-07-15T13:00:00", "en-MY")).toBe("15 Jul 2026, 1:00 pm");
+    expect(formatTimestamp("2026-07-15T13:00:00Z", "en-MY")).toBe("15 Jul 2026, 9:00 pm");
+  });
   it("honours warning validity dates", () => { const now = new Date("2026-07-11T12:00:00Z"); expect(isWarningCurrentlyValid("2026-07-11T00:00:00Z", "2026-07-12T00:00:00Z", now)).toBe(true); expect(isWarningCurrentlyValid(undefined, "2026-07-10T00:00:00Z", now)).toBe(false); });
   it("interprets timezone-less MET Malaysia warning dates as UTC+8", () => {
     expect(isWarningCurrentlyValid("2026-07-12T01:00:00", "2026-07-12T06:00:00", new Date("2026-07-11T19:00:00Z"))).toBe(true);
