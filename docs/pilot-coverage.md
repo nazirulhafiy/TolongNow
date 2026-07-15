@@ -33,14 +33,13 @@ The sourced fallback covers four Melaka Tengah centres, two Alor Gajah centres a
 
 ## Current production QA status
 
-Checked on 15 July 2026 against commit `fb20ecd` and Vercel deployment `dpl_A7gm3Tdy6A6WXTzUc1Zm3FPMjiMi`:
+Checked on 15 July 2026 against application commit `979098c` and Vercel deployment `dpl_GzrRg5pbuNdKv4X5dkejkNR3cBwJ`:
 
 - Vercel reported the Git-triggered production deployment as `READY`, with `tolong.hafiy.my` assigned as an alias.
-- The selected-location route returned HTTP 200. Vercel reported no runtime error clusters in the preceding hour; observed requests were HTTP 200 or 304.
-- The normal production URL rendered the successful empty-JKM state, not the reported fallback. `SHOW_REPORTED_PPS_FALLBACK` therefore still needs to be enabled in the Production environment and redeployed if the fallback should appear without the review override.
-- The `historyPreview=true` URL rendered the expected July 2026 label, Melaka Tengah totals, four centre cards, source link, three coordinate-backed OpenStreetMap pins and the JAPERUN locality-search link.
-- The fallback layout rendered as a two-column desktop/tablet grid and a single-column narrow-mobile stack.
-- Browser QA logged React hydration error `#418` on both the normal and review URLs. The mismatch was traced to timezone-free MET Malaysia timestamps: Vercel rendered them as UTC while Malaysia browsers interpreted them as local time. The shared timestamp parser now treats timezone-free provider values as UTC+8, with explicit-timezone values preserved. Local browser hydration and automated timestamp tests pass; production confirmation requires the updated commit to deploy.
+- `SHOW_REPORTED_PPS_FALLBACK=true` was enabled for Production. The normal selected-location URL rendered the July 2026 label, Melaka Tengah totals, four centre cards, source link, three coordinate-backed OpenStreetMap pins and the JAPERUN locality-search link.
+- Timezone-free MET Malaysia warning values rendered consistently as Malaysia time. Browser QA showed the expected 1:00 pm issue time and 5:00 pm validity time with no React hydration error or other console warning.
+- The fallback rendered as a two-column grid at a 1195 px viewport and a single-column stack at 390 px, with no horizontal overflow.
+- Vercel reported no runtime error clusters in the preceding hour. The checked deployment returned HTTP 200 for all five observed requests.
 
 ## Demonstration fixture
 
